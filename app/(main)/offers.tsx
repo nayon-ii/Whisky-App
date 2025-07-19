@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
-import { Filter } from "lucide-react-native";
+import { ListFilter as Filter } from "lucide-react-native";
 import { useAppStore } from "@/store/useAppStore";
 import { SearchInput } from "@/components/shared/SearchInput";
 import { FilterChip } from "@/components/shared/FilterChip";
