@@ -6,6 +6,8 @@ export default function ScreenLayout() {
     <Stack>
       <Stack.Screen name="notifications" options={{ headerShown: false }} />
       <Stack.Screen name="offer-details/[id]" options={{ headerShown: false }} />
+      <Stack.Screen name="express-interest/[id]" options={{ headerShown: false }} />
+      <Stack.Screen name="express-interest-success/[id]" options={{ headerShown: false }} />
     </Stack>
   );
 }

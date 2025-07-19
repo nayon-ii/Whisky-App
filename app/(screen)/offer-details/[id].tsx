@@ -57,7 +57,7 @@ export default function OfferDetailsScreen() {
   };
 
   const handleExpressInterest = () => {
-    showToast("success", "Interest Expressed", "We'll contact you soon!");
+    router.push(`/(screen)/express-interest/${offer.id}` as any);
   };
 
   const renderDetailItem = (label: string, value: string) => (

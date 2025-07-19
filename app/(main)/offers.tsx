@@ -34,7 +34,7 @@ export default function OffersScreen() {
   const avgPrice = "$20K";
 
   const handleExpressInterest = (offerId: string) => {
-    showToast("success", "Interest Expressed", "We'll contact you soon!");
+    router.push(`/(screen)/express-interest/${offerId}` as any);
   };
 
   const handleViewDetails = (offerId: string) => {
