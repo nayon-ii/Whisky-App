@@ -133,12 +133,24 @@ interface AppState {
     id: string;
     name: string;
     email: string;
+    balance?: number;
+    avatar?: string;
+    firstName?: string;
+    lastName?: string;
   } | null;
   theme: "light" | "dark" | "system";
   casks: Cask[];
   activities: Activity[];
   notifications: Notification[];
   offers: Offer[];
+  referralData: {
+    totalReferrals: number;
+    completedReferrals: number;
+    totalEarned: number;
+    referralCode: string;
+    referralStats: ReferralStat[];
+    rewardHistory: RewardHistory[];
+  };
   portfolioStats: {
     totalValue: string;
     totalCasks: number;
@@ -156,9 +168,27 @@ interface AppState {
   markNotificationAsRead: (id: string) => void;
   setForgotPasswordEmail: (email: string) => void;
   setOtpVerified: (verified: boolean) => void;
+  updateUserProfile: (updates: Partial<AppState["user"]>) => void;
   logout: () => void;
 }
 
+interface ReferralStat {
+  id: string;
+  name: string;
+  email: string;
+  referredDate: string;
+  status: "Completed" | "Pending";
+  reward: number;
+}
+
+interface RewardHistory {
+  id: string;
+  title: string;
+  description: string;
+  amount: number;
+  status: "Approved" | "Pending";
+  date: string;
+}
 // DEFINE YOUR 10 CASKS AS A CONSTANT WITH FULL DYNAMIC DATA
 const DEFAULT_CASKS: Cask[] = [
   {
@@ -650,6 +680,10 @@ const DEFAULT_OFFERS: Offer[] = [
 ];
 
 export const useAppStore = create<AppState>()(
+  updateUserProfile: (updates) =>
+    set((state) => ({
+      user: state.user ? { ...state.user, ...updates } : null,
+    })),
   persist(
     (set) => ({
       user: null,
@@ -682,6 +716,48 @@ export const useAppStore = create<AppState>()(
           badge: "Reward",
         },
       ],
+      referralData: {
+        totalReferrals: 12,
+        completedReferrals: 8,
+        totalEarned: 400,
+        referralCode: "JAMES2024",
+        referralStats: [
+          {
+            id: "1",
+            name: "Sarah Johnson",
+            email: "sarah@example.com",
+            referredDate: "2025-01-25",
+            status: "Completed",
+            reward: 50,
+          },
+          {
+            id: "2",
+            name: "Emma Wilson",
+            email: "emma@example.com",
+            referredDate: "2025-03-15",
+            status: "Completed",
+            reward: 50,
+          },
+        ],
+        rewardHistory: [
+          {
+            id: "1",
+            title: "Referral Bonus",
+            description: "Sarah Johnson joined and made first investment",
+            amount: 50,
+            status: "Approved",
+            date: "2025-01-25",
+          },
+          {
+            id: "2",
+            title: "Referral Bonus",
+            description: "Emma Wilson joined and made first investment",
+            amount: 50,
+            status: "Approved",
+            date: "2025-03-15",
+          },
+        ],
+      },
       notifications: [
         {
           id: "1",
